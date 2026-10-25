@@ -11,7 +11,7 @@ class IssueBase:
         self.__fixfunc = None
         self.__args = None
 
-    def set_fixfinc(self, in_func, *args)
+    def set_fixfinc(self, in_func, *args):
         self.__fixfunc = weakref.WeakMethod(fixfunc)
         self.__args = args
 
@@ -63,10 +63,19 @@ class Check_Freezed(CheckerBase):
         return "ルートノードに値が入ってないか"
 
     def check(self):
-        
-        IssueBase("なんでやねん", "mesh_root", self.auto_fix)
-        self._issues.append()
-
+        def _findparent(node):
+            tempparent = cmds.listRelatives(node, p=True) or None
+            if tempparent == None:
+                 return node
+            _findparent(tempparent)
+        rootnode = _findparent(cmds.ls(type="joint")[0])
+        if cmds.xform(rootnode, q=True, t=True) != [0,0,0]:
+            self._issues.append(IssueBase("Transformに値が入っています。", rootnode))
+        if cmds.xform(rootnode, q=True, ro=True) != [0,0,0]:
+            self._issues.append(IssueBase("Rotateに値が入っています。", rootnode))
+        if cmds.xform(rootnode, q=True, relative=True, s=True) != [1,1,1]:
+            self._issues.append(IssueBase("Scaleがかかっています。", rootnode))
+        return len(self._issues) > 0
 
 class Check_DeletedHistory(CheckerBase):
     ##

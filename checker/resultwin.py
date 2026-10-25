@@ -47,7 +47,6 @@ class ErrorCheckerResult(MayaQWidgetBaseMixin, QtWidgets.QWidget):
         ##
         if not current:
             return
-        
         self.issue_table.clearContents()
         current.issue_table
-        self.issue_table.
+        #self.issue_table.
