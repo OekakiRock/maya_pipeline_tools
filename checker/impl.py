@@ -88,7 +88,16 @@ class Check_DeletedHistory(CheckerBase):
         return "ヒストリ削除済みか"
 
     def check(self):
-        pass
+        # TODO: たぶんうまくいかない。
+        deftypes = ("geometryFilter", "shape", "transform")
+        non_deformer_histories = []
+        for node in cmds.listHistory(cmds.ls(dag=True)):
+            notetype = cmds.nodeType(node)
+            if notetype in deftypes:
+                continue
+            non_deformer_histories.append(node)
+        print(non_deformer_histories)
+        return len(self._issues) > 0
 
 class Check_Influence(CheckerBase):
     ##
@@ -102,7 +111,12 @@ class Check_Influence(CheckerBase):
         return "インフルエンス数が4を超えていないか"
 
     def check(self):
-        pass
+        for elem in cmds.ls(type="skinCluster") or []:
+            count = len(cmds.skinCluster(elem, q=True, inf=True))
+            if count > 4:
+                self._issues.append(IssueBase("インフルエンス数が4を超えています。", elem, count))
+        return len(self._issues) > 0
+
 
 class Check_BackFace(CheckerBase):
     ##
@@ -116,7 +130,7 @@ class Check_BackFace(CheckerBase):
         return "逆向き法線がないか"
 
     def check(self):
-        pass
+        return len(self._issues) > 0
 
 class Check_NodeNames(CheckerBase):
     ##
@@ -130,7 +144,7 @@ class Check_NodeNames(CheckerBase):
         return "不正なノード名がまぎれていないか"
 
     def check(self):
-        pass
+        return len(self._issues) > 0
 
 class Check_BasePose(CheckerBase):
     ##
@@ -144,6 +158,6 @@ class Check_BasePose(CheckerBase):
         return "ベースポーズが存在するか"
 
     def check(self):
-        pass
+        return len(self._issues) > 0
 
 
