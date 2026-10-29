@@ -7,6 +7,9 @@ except ImportError:
 
 
 class ErrorCheckerResult(MayaQWidgetBaseMixin, QtWidgets.QWidget):
+    ##
+    # @brief エラーチェッカー起動後に表示するウィンドウ
+    ##
     def __init__(self, parent=None, in_checkers=[]):
         super().__init__(parent)
 
@@ -48,5 +51,6 @@ class ErrorCheckerResult(MayaQWidgetBaseMixin, QtWidgets.QWidget):
         if not current:
             return
         self.issue_table.clearContents()
-        current.issue_table
+        # TODO
+        #current.issue_table
         #self.issue_table.

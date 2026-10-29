@@ -20,16 +20,14 @@ class ToolWidget(MayaQWidgetBaseMixin, QtWidgets.QWidget):
         # Maya上で単独のウィンドウとして表示するためのフラグ
         self.setWindowFlags(QtCore.Qt.Window)
         self.setWindowTitle("Maya Pipline Tool for Unity")
-        self.resize(320, 320)
+        self.resize(320, 280)
 
         main_layout = QtWidgets.QVBoxLayout(self)
 
         # 各グループボックスをメインレイアウトに追加
         self.__errorchecker = check_group.ErrorCheckWidgetGroup("Error Checker")
-        self.__destpath = filedialog_group.FileDialogWidgetGroup("Output Path")
-        self.__exporter = export_group.ExportWidgetGroup("Export")
+        self.__exporter = export_group.ExportWidgetGroup("Model Export")
         main_layout.addWidget(self.__errorchecker)
-        main_layout.addWidget(self.__destpath)
         main_layout.addWidget(self.__exporter)
 
         # レイアウトの下部に上詰めのためのスペーサー（余白）を追加
@@ -37,8 +35,6 @@ class ToolWidget(MayaQWidgetBaseMixin, QtWidgets.QWidget):
 
         # ウィジェット全体のメインレイアウトとして設定
         self.setLayout(main_layout)
-
-    ## TODO: 死んだら子供も殺すようにした方がいいかも…？
 
 def get_maya_window():
     ##

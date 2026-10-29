@@ -1,6 +1,9 @@
 from . import impl
 from . import resultwin
 import importlib
+#importlib.reload(impl)
+#importlib.reload(resultwin)
+
 from maya.app.general.mayaMixin import MayaQWidgetBaseMixin
 try:
     from PySide6 import QtWidgets, QtCore
@@ -9,7 +12,7 @@ except ImportError:
 
 class ErrorCheckWidgetGroup(QtWidgets.QGroupBox):
     ##
-    # @brief 
+    # @brief エラーチェッカー起動グループボックス
     ##
     def __init__(self, title, parent=None):
         super().__init__(title, parent)
@@ -27,7 +30,6 @@ class ErrorCheckWidgetGroup(QtWidgets.QGroupBox):
         self.__checkers = [
             impl.Check_Freezed(),
             impl.Check_DeletedHistory(),
-            impl.Check_Influence(),
             impl.Check_BackFace(),
             impl.Check_NodeNames(),
             impl.Check_BasePose(),

@@ -5,7 +5,7 @@ except ImportError:
 
 class FileDialogWidgetGroup(QtWidgets.QGroupBox):
     ##
-    # @brief 
+    # @brief (未使用：エクスポータに統合)
     ##
     def __init__(self, title, parent=None):
         super().__init__(title, parent)
