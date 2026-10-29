@@ -68,6 +68,7 @@ class ExportWidgetGroup(QtWidgets.QGroupBox):
         self.path_line_edit.setText(path[0].replace("\\", "/"))
 
     def run_export(self):
+        # FIXME: モデル出力に問題あり
         jointroot = utils_impl.SceneUtils.find_get_joint_root()
         meshroot = utils_impl.SceneUtils.find_get_mesh_root()
         if (not cmds.objExists(jointroot)) or (not cmds.objExists(meshroot)):
